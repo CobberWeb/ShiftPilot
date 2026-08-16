@@ -1,0 +1,856 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=theme-color content="#06090d"><link rel=manifest href=manifest.webmanifest><link rel=apple-touch-icon href=icon-192.png><title>ShiftPilot</title>
+<style>
+:root{--bg:#06090d;--surface:#0d131a;--surface2:#121a23;--line:#202b36;--txt:#f6f8fb;--muted:#8492a2;--g:#5aff97;--blue:#66a8ff;--amber:#ffd36a;--red:#ff7078}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(700px 330px at 20% -10%,#173f2966,transparent),radial-gradient(600px 300px at 100% 0,#172d4c55,transparent),var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;padding:18px 14px 96px}.app{max-width:680px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.brand{display:flex;align-items:center;gap:10px}.mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#15241b,#0d1511);border:1px solid #31543c;color:var(--g);font-weight:1000}.name{font-size:21px;font-weight:1000;letter-spacing:-.5px}.tiny{font-size:10px;color:var(--muted)}.live{padding:7px 10px;border-radius:999px;border:1px solid #29343e;color:#9aa7b4;font-size:10px;font-weight:950}.live.on{color:var(--g);border-color:#2e6843;background:#0d1b12;box-shadow:0 0 24px #5aff9718}
+.hero{position:relative;overflow:hidden;background:linear-gradient(145deg,#111b17,#0f1821);border:1px solid #26333d;border-radius:27px;padding:20px;box-shadow:0 20px 50px #0006}.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:#5aff9710;right:-80px;top:-90px}.cap{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:900}.money{font-size:42px;font-weight:1000;letter-spacing:-2px;margin:4px 0}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px}.metric{background:#0a1016aa;border:1px solid #202a34;border-radius:15px;padding:11px;text-align:center}.metric small{display:block;color:var(--muted);font-size:9px;margin-bottom:4px}.metric b{font-size:15px}
+.tabs{position:fixed;z-index:9;bottom:0;left:0;right:0;background:#080d12ee;backdrop-filter:blur(18px);border-top:1px solid #202a34;padding:7px max(10px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr)}.tabs button{border:0;background:none;color:#778594;font-size:9px;font-weight:900;padding:6px}.ico{font-size:18px;display:block;margin-bottom:2px;filter:grayscale(1)}.tabs button.active{color:var(--g)}.tabs button.active .ico{filter:none}
+.page{display:none;margin-top:12px}.page.active{display:block}.card{background:linear-gradient(150deg,#0e151c,#0c1218);border:1px solid var(--line);border-radius:22px;padding:16px;margin-bottom:11px;box-shadow:0 16px 38px #0004}.ct{font-size:16px;font-weight:1000}.cd{font-size:11px;color:var(--muted);line-height:1.45;margin:3px 0 12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}label{display:block;font-size:10px;color:#95a2b0;font-weight:850;margin:0 0 5px}input,select{width:100%;padding:12px;border:1px solid #293542;border-radius:13px;background:#090f15;color:#fff;font-size:14px;outline:none}input:focus,select:focus{border-color:#3e7652;box-shadow:0 0 0 3px #5aff970d}.btn{width:100%;padding:13px;border-radius:14px;border:0;background:#eafff0;color:#06100a;font-weight:1000;margin-top:10px}.btn.alt{background:#151f29;color:#fff;border:1px solid #2a3642}.btn.red{background:#281517;color:#ffd1d3;border:1px solid #51262a}.verdict{text-align:center;font-size:30px;font-weight:1000}.good{color:var(--g)}.maybe{color:var(--amber)}.bad{color:var(--red)}.center{text-align:center}.muted{color:var(--muted);font-size:11px;line-height:1.45}.pill{font-size:9px;font-weight:950;border:1px solid #29343f;padding:6px 8px;border-radius:999px;color:#9aa6b3}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.shiftcore{text-align:center;padding:5px 0 12px}.timer{font-size:45px;font-weight:1000;letter-spacing:-2px}.earn{font-size:25px;font-weight:1000;color:var(--g)}.distance{margin-top:12px}.track{height:12px;border-radius:999px;background:#1b2530;overflow:hidden;display:flex}.onkm{height:100%;background:var(--g)}.offkm{height:100%;background:#4e78aa}.legend{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--muted)}.order{border-top:1px solid #202a34;padding:11px 0;display:grid;grid-template-columns:1fr auto}.order:first-child{border:0}.order b{font-size:13px}.order small{display:block;color:var(--muted);margin-top:3px}.empty{text-align:center;padding:24px 8px;color:var(--muted);font-size:12px}.schedule-day{border:1px solid #222d38;background:#10171f;border-radius:16px;padding:12px;margin-top:8px}.toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:950}.toggle input{width:auto}.blocks{margin-top:10px}.block{display:grid;grid-template-columns:1fr 1fr auto;gap:7px;align-items:end;margin-top:7px}.x{width:36px;height:40px;border:1px solid #3a2b2d;background:#201416;color:#ff969b;border-radius:11px}.add{font-size:11px;color:var(--g);background:none;border:0;padding:9px 0;font-weight:900}.summaryday{display:grid;grid-template-columns:48px 1fr auto;gap:8px;align-items:center;padding:11px 0;border-top:1px solid #202a34}.summaryday:first-child{border:0}.summaryday .times{font-size:10px;color:var(--muted)}.callout{border:1px solid #285038;background:#0d1b13;border-radius:15px;padding:12px;color:#c9f6d8;font-size:11px;line-height:1.5}.fybig{font-size:31px;font-weight:1000}.expense{border-top:1px solid #202a34;padding:10px 0}.expense:first-child{border:0}details summary{cursor:pointer;font-weight:950}.modal{display:none;position:fixed;z-index:20;inset:0;background:#000b;backdrop-filter:blur(8px);padding:20px;align-items:flex-end;justify-content:center}.modal.open{display:flex}.sheet{width:min(100%,560px);background:#10171f;border:1px solid #2a3641;border-radius:26px;padding:18px;box-shadow:0 25px 80px #000}.sheet h2{margin:0 0 4px;font-size:20px}.split{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.sbox{background:#0b1117;border:1px solid #222d37;border-radius:14px;padding:10px;text-align:center}.sbox small{display:block;color:var(--muted);font-size:9px}.sbox b{font-size:15px}.hide{display:none}
+
+.shift-history-item{border-top:1px solid #202a34;padding:13px 0}.shift-history-item:first-child{border-top:0}
+.shift-history-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.shift-history-date{font-size:13px;font-weight:950}.shift-history-time{font-size:10px;color:var(--muted);margin-top:3px}
+.shift-history-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.shift-history-stat{background:#0a1016;border:1px solid #202a34;border-radius:12px;padding:8px;text-align:center}
+.shift-history-stat small{display:block;color:var(--muted);font-size:8px;margin-bottom:3px}
+.shift-history-stat b{font-size:12px}
+.delete-shift{border:1px solid #4a262a;background:#211416;color:#ff9da2;border-radius:11px;padding:8px 10px;font-size:10px;font-weight:950}
+@media(max-width:430px){.shift-history-stats{grid-template-columns:repeat(2,1fr)}}
+
+.fuel-station{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid #202a34}
+.fuel-station:first-child{border-top:0}.fuel-station-name{font-size:11px;font-weight:900}.fuel-station-sub{font-size:9px;color:var(--muted);margin-top:2px}.fuel-station-price{font-size:14px;font-weight:1000;color:var(--g)}
+
+/* v9 mobile driver dashboard */
+body{padding-bottom:92px}
+.driver-home{display:grid;gap:10px}
+.hero-shift{background:linear-gradient(180deg,#101922,#0b1117);border:1px solid #253442;border-radius:20px;padding:15px}
+.hero-state{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hero-state .live{font-size:12px}
+.hero-timer{font-size:34px;font-weight:1000;letter-spacing:-1.5px;line-height:1;margin:12px 0 4px}
+.hero-money{font-size:42px;font-weight:1000;letter-spacing:-2px;line-height:1.02;margin-top:8px}
+.hero-substats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+.hero-substats>div,.dash-mini{background:#080d12;border:1px solid #202a34;border-radius:13px;padding:9px;text-align:center}
+.hero-substats small,.dash-mini small{display:block;font-size:8px;color:var(--muted);margin-bottom:4px}
+.hero-substats b,.dash-mini b{font-size:13px}
+.driver-action{width:100%;min-height:58px;border-radius:16px;font-size:15px;font-weight:1000;margin-top:12px}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.dash-card{background:var(--card);border:1px solid #202a34;border-radius:17px;padding:12px;min-width:0}
+.dash-card.full{grid-column:1/-1}
+.dash-title{font-size:9px;font-weight:1000;color:var(--muted);letter-spacing:.6px;text-transform:uppercase}
+.dash-big{font-size:23px;font-weight:1000;margin-top:5px;letter-spacing:-.7px}
+.dash-line{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.35}
+.progress-track{height:10px;background:#080d12;border:1px solid #202a34;border-radius:999px;overflow:hidden;margin-top:9px}
+.progress-fill{height:100%;background:var(--g);border-radius:999px;min-width:0}
+.home-fuel-price{font-size:25px;font-weight:1000}
+.home-fuel-cheap{font-size:10px;color:var(--g);font-weight:900;margin-top:3px}
+.home-refresh{border:0;background:#121c24;color:var(--muted);border-radius:10px;padding:8px 10px;font-size:9px;font-weight:900;margin-top:8px;width:100%}
+.quick-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}
+.quick-btn{min-height:50px;border-radius:13px;border:1px solid #263442;background:#0c131a;color:var(--text);font-size:10px;font-weight:950}
+.tabs{height:76px;padding-bottom:max(8px,env(safe-area-inset-bottom));align-items:flex-start;padding-top:7px}
+.tabs button{min-height:55px;font-size:9px}.tabs .ico{font-size:18px;margin-bottom:2px}
+@media(min-width:700px){
+  .driver-home{max-width:760px;margin:0 auto}
+  .hero-timer{font-size:40px}.hero-money{font-size:48px}
+  .dash-grid{grid-template-columns:repeat(4,1fr)}
+  .dash-card.full{grid-column:span 2}
+}
+@media(max-width:380px){
+  .hero-money{font-size:36px}.hero-timer{font-size:30px}
+  .dash-big{font-size:20px}
+}
+
+.gps-on{color:var(--g)}.gps-warn{color:var(--amber)}
+.recent-shift{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-top:1px solid #202a34}
+.recent-shift:first-child{border-top:0}
+.recent-shift-main{font-size:12px;font-weight:950}
+.recent-shift-sub{font-size:9px;color:var(--muted);margin-top:3px}
+.recent-shift-money{font-size:15px;font-weight:1000;text-align:right}
+
+/* v13 ShiftPilot wordmark */
+.wordmark{
+  display:flex;align-items:center;gap:0;
+  font-family:Impact,"Arial Black","Helvetica Neue",sans-serif;
+  font-size:23px;font-weight:900;font-style:italic;
+  letter-spacing:-1.2px;line-height:1;
+  text-transform:uppercase;white-space:nowrap;
+}
+.wordmark-shift{color:var(--text)}
+.wordmark-pilot{color:var(--g);margin-left:5px}
+.wordmark-mark{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--g);margin-left:7px;align-self:flex-start;margin-top:1px;
+  box-shadow:0 0 12px rgba(73,255,164,.45)
+}
+</style></head><body><div class=app>
+<div class=top><div class=brand><div class=wordmark aria-label="ShiftPilot"><span class=wordmark-shift>SHIFT</span><span class=wordmark-pilot>PILOT</span><span class=wordmark-mark></span></div></div><div id=live class=live>● OFFLINE</div></div>
+<div class=hero><div class=cap>THIS WEEK • ESTIMATED AFTER FUEL</div><div id=weekNet class=money>$0.00</div><div class=muted>Based on the shifts and odometer distances you've recorded.</div><div class=metrics><div class=metric><small>GROSS</small><b id=weekGross>$0</b></div><div class=metric><small>HOURS</small><b id=weekHours>0.0h</b></div><div class=metric><small>AFTER FUEL / HR</small><b id=weekRate>$0</b></div></div></div>
+
+
+<section id=home class="page active">
+<div class=driver-home>
+
+  <div class=hero-shift>
+    <div class=hero-state>
+      <span id=homeLive class=live>● OFFLINE</span>
+      <span id=homeToday class=pill>TODAY</span>
+    </div>
+    <div id=homeTimer class=hero-timer>0:00:00</div>
+    <div class=dash-title>SHIFT EARNINGS</div>
+    <div id=homeGross class=hero-money>$0.00</div>
+    <div class=hero-substats>
+      <div><small>$/HR</small><b id=homeHr>$0.00</b></div>
+      <div><small>ORDERS</small><b id=homeOrders>0</b></div>
+      <div><small>$/KM</small><b id=homePerKm>$0.00</b></div>
+    </div>
+    <button id=homeShiftBtn class="btn driver-action">START SHIFT</button>
+  </div>
+
+  <div class=dash-grid>
+    <div class=dash-card>
+      <div class=dash-title>DISTANCE</div>
+      <div id=homeTotalKm class=dash-big>0.0 km</div>
+      <div id=homeDistanceSplit class=dash-line>0.0 on-order · 0.0 off-order</div>
+    </div>
+
+    <div class=dash-card>
+      <div class=dash-title>FUEL</div>
+      <div id=homeFuelPrice class=home-fuel-price>—</div>
+      <div id=homeFuelCheap class=home-fuel-cheap>Government price not loaded</div>
+      <div id=homeFuelCost class=dash-line>$0.00 est. this shift</div>
+      <button id=homeFuelRefresh class=home-refresh>UPDATE PRICE</button>
+    </div>
+
+    <div class="dash-card full">
+      <div class=dash-title>THIS WEEK</div>
+      <div id=homeWeekGross class=dash-big>$0 / $0</div>
+      <div id=homeWeekHours class=dash-line>0 / 0 hours</div>
+      <div class=progress-track><div id=homeWeekProgress class=progress-fill style="width:0%"></div></div>
+    </div>
+
+    <div class="dash-card full">
+      <div class=dash-title>TODAY'S PLAN</div>
+      <div id=homePlan class=dash-big>Not scheduled</div>
+      <div id=homePlanTarget class=dash-line>Set your weekly plan under More.</div>
+    </div>
+
+
+    <div class="dash-card full">
+      <div class=dash-title>LIVE LOCATION</div>
+      <div id=homeGpsStatus class=dash-big>GPS off</div>
+      <div id=homeGpsDetail class=dash-line>Starts automatically with your shift.</div>
+    </div>
+
+    <div class="dash-card full">
+      <div class=row>
+        <div>
+          <div class=dash-title>RECENT SHIFTS</div>
+          <div id=homeRecentShiftTitle class=dash-big>No completed shifts</div>
+        </div>
+        <button id=viewAllShifts class=home-refresh style="width:auto;margin:0">VIEW ALL</button>
+      </div>
+      <div id=homeRecentShifts class=empty style="padding:12px 0 0">Your finished shifts will appear here.</div>
+    </div>
+
+    <div class="dash-card full">
+      <div class=dash-title>QUICK ACTIONS</div>
+      <div class=quick-row>
+        <button class=quick-btn data-go=order>CHECK ORDER</button>
+        <button class=quick-btn data-go=expenses>ADD EXPENSE</button>
+        <button class=quick-btn data-go=more>SHIFT HISTORY</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id=order class=page>
+<div class=card>
+  <div class=ct>Order checker</div>
+  <div class=cd>Use while safely stopped. Enter the offer details and ShiftPilot will rate it against your targets.</div>
+  <div class=grid2>
+    <div><label>OFFER PAY ($)</label><input id=pay type=number step=.01 placeholder="Offer pay"></div>
+    <div><label>DISTANCE (KM)</label><input id=km type=number step=.1 placeholder="Order km"></div>
+  </div>
+  <div style="margin-top:9px"><label>ESTIMATED MINUTES</label><input id=mins type=number step=1 placeholder="Minutes"></div>
+  <div class=grid3 style="margin-top:12px">
+    <div class=metric><small>$/KM</small><b id=pk>$0.00</b></div>
+    <div class=metric><small>$/HR</small><b id=ph>$0.00</b></div>
+    <div class=metric><small>EST. FUEL</small><b id=after>$0.00</b></div>
+  </div>
+  <div id=verdict class=verdict style="margin-top:14px">—</div>
+  <div id=why class="muted center">Enter an offer to check it.</div>
+  <button id=log class="btn">Add accepted order to shift</button>
+</div>
+<div class=card><div class=ct>Recent orders</div><div id=orderHistory class=empty>No orders recorded yet.</div></div>
+</section>
+
+
+<section id=shift class=page>
+<div class=card><div class=shiftcore><div class=cap>CURRENT SHIFT</div><div id=timer class=timer>0:00</div><div id=currentEarn class=earn>$0.00</div><div class=muted>recorded gross earnings</div></div><div class=grid3><div class=metric><small>ORDERS</small><b id=sOrders>0</b></div><div class=metric><small>ON-ORDER KM</small><b id=sOn>0</b></div><div class=metric><small>$/ORDER KM</small><b id=sPerKm>$0</b></div></div><div id=distanceBox class="distance hide"><div class=track><div id=onBar class=onkm></div><div id=offBar class=offkm></div></div><div class=legend><span id=onLegend>On-order 0 km</span><span id=offLegend>Off-order 0 km</span></div></div><button id=shiftBtn class=btn>Start shift</button></div>
+<div class=card><div class=ct>Orders this shift</div><div id=orders class=empty>No orders yet. Accepted orders will appear here.</div></div>
+
+
+</section>
+
+<section id=plan class=page>
+<div class=card><div class=row><div><div class=ct>Your weekly plan</div><div class=cd>Your schedule starts blank. ShiftPilot calculates the hours from your time blocks.</div></div><span id=planHours class=pill>0h</span></div><div id=planSummary class=empty>No schedule set yet.</div></div>
+<div class=card><div class=ct>Build your schedule</div><div class=cd>Turn on a day, choose start and finish times, and add a second block if you work split shifts.</div><div id=scheduleEditor></div><button id=saveSchedule class="btn alt">Save weekly plan</button></div>
+<div class=card><div class=ct>Income goal</div><div class=grid2><div><label>WEEKLY GROSS TARGET ($)</label><input id=weeklyTarget type=number value=1000 step=50></div><div><label>WEEKLY HOURS GOAL</label><input id=hoursTarget type=number value=35></div></div><div id=todayGoal class=callout style="margin-top:11px">Set a schedule to calculate daily targets.</div></div>
+</section>
+
+
+
+
+</div>
+
+
+<section id=expenses class=page>
+<div class=card>
+  <div class=ct>Expenses</div>
+  <div class=cd>Record what you actually spend while doing delivery work. Fuel has extra fields so ShiftPilot can save the real numbers from your receipt.</div>
+  <div class=grid2>
+    <div>
+      <label>CATEGORY</label>
+      <select id=ecat>
+        <option>Fuel</option>
+        <option>Parking / tolls</option>
+        <option>Delivery equipment</option>
+        <option>Phone / data</option>
+        <option>Vehicle servicing</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label>AMOUNT ($)</label>
+      <input id=eamt type=number step=.01 placeholder="Amount paid">
+    </div>
+  </div>
+
+  <div id=fuelExpenseFields style="margin-top:9px">
+    <div class=grid2>
+      <div>
+        <label>PRICE PER LITRE ($)</label>
+        <input id=expenseFuelPrice type=number step=.001 placeholder="From receipt">
+      </div>
+      <div>
+        <label>LITRES</label>
+        <input id=expenseLitres type=number step=.01 placeholder="Optional">
+      </div>
+    </div>
+    <div class=muted style="margin-top:7px">Your manual fuel price only lives here when you record an actual fuel purchase. If litres are blank, ShiftPilot can calculate litres from amount ÷ price/L.</div>
+  </div>
+
+  <div style="margin-top:9px">
+    <label>ODOMETER (OPTIONAL)</label>
+    <input id=expenseOdo type=number step=.1 placeholder="Odometer at purchase">
+  </div>
+
+  <div style="margin-top:9px">
+    <label>NOTE</label>
+    <input id=enote placeholder="Optional note">
+  </div>
+  <button id=addExp class="btn alt">Save expense</button>
+</div>
+
+<div class=card>
+  <div class=row>
+    <div>
+      <div class=ct>This month</div>
+      <div class=cd>Recorded expenses for the current month.</div>
+    </div>
+    <span id=monthExpenseTotal class=pill>$0.00</span>
+  </div>
+  <div id=expList class=empty>No expenses recorded yet.</div>
+</div>
+</section>
+
+<section id=more class=page>
+<div class=card>
+  <div class=ct>Weekly plan</div>
+  <div class=cd>Edit your work schedule and weekly targets.</div>
+  <button class="btn alt" data-go=plan>Open weekly plan</button>
+</div>
+
+<div class=card>
+  <div class=row>
+    <div><div class=ct>Shift history</div><div class=cd>Completed shifts, totals and accidental-shift deletion.</div></div>
+    <span id=shiftHistoryCount class=pill>0 shifts</span>
+  </div>
+  <div id=shiftHistory class=empty>No completed shifts yet.</div>
+</div>
+
+<div class=card>
+  <div class=ct>Vehicle</div>
+  <div class=cd>Keep the setup simple. You do not manually enter a fuel price here.</div>
+  <div class=grid2>
+    <div><label>YEAR</label><input id=carYear placeholder="Year"></div>
+    <div><label>MAKE</label><input id=carMake placeholder="Make"></div>
+    <div><label>MODEL</label><input id=carModel placeholder="Model"></div>
+    <div>
+      <label>FUEL TYPE</label>
+      <select id=fuelType>
+        <option>Unleaded 91</option><option>E10</option><option>Premium 95</option><option>Premium 98</option><option>Diesel</option>
+      </select>
+    </div>
+  </div>
+  <button id=saveCar class="btn alt">Save vehicle</button>
+</div>
+
+
+<div class=card>
+  <div class=row>
+    <div>
+      <div class=ct>Queensland fuel prices</div>
+      <div class=cd>Uses the latest free Queensland Government fuel-price dataset published to Open Data.</div>
+    </div>
+    <span id=fuelSourceBadge class=pill>NOT LOADED</span>
+  </div>
+
+  <div class=grid2>
+    <div>
+      <label>SUBURB / AREA</label>
+      <input id=fuelArea placeholder="e.g. Logan Central">
+    </div>
+    <div>
+      <label>FUEL TYPE</label>
+      <select id=fuelLookupType>
+        <option>Unleaded 91</option>
+        <option>E10</option>
+        <option>Premium 95</option>
+        <option>Premium 98</option>
+        <option>Diesel</option>
+      </select>
+    </div>
+  </div>
+
+  <button id=useMyLocation class="btn">Use my current location</button>
+  <button id=updateFuelPrice class="btn alt">Use typed suburb instead</button>
+
+  <div id=fuelLocationStatus class=muted style="margin-top:9px">Location is only requested when you tap “Use my current location”.</div><div id=fuelLookupResult class=hide style="margin-top:12px">
+    <div class=grid3>
+      <div class=metric><small>TYPICAL / MEDIAN</small><b id=govMedian>—</b></div>
+      <div class=metric><small>CHEAPEST</small><b id=govCheapest>—</b></div>
+      <div class=metric><small>STATIONS</small><b id=govStations>—</b></div>
+    </div>
+    <div id=fuelDatasetInfo class=muted style="margin-top:10px"></div>
+    <div id=cheapStations style="margin-top:8px"></div>
+  </div>
+
+  <div id=fuelLookupError class="callout hide" style="margin-top:11px"></div>
+
+  <div class=callout style="margin-top:11px">
+    This is a <b>government snapshot</b>, not a minute-by-minute live feed. ShiftPilot shows the dataset month so you can see how fresh it is.
+  </div>
+
+  <div class=grid3 style="margin-top:11px">
+    <div class=metric><small>PRICE USED</small><b id=fpd>—</b></div>
+    <div class=metric><small>EST. USE</small><b id=fed>8.5 L/100</b></div>
+    <div class=metric><small>WEEK FUEL</small><b id=wFuel>$0</b></div>
+  </div>
+</div>
+
+<div class=card>
+  <div class=row>
+    <div>
+      <div class=ct>Tax & financial-year report</div>
+      <div class=cd>Use this when you actually need tax-time records or an export.</div>
+    </div>
+    <select id=fy style="width:auto"><option>2026–27</option><option>2025–26</option></select>
+  </div>
+  <div id=taxGross class=fybig>$0.00</div>
+  <div class=muted>recorded gross delivery income</div>
+  <div class="grid3" style="margin-top:12px">
+    <div class=metric><small>SHIFTS</small><b id=taxShifts>0</b></div>
+    <div class=metric><small>TOTAL KM</small><b id=taxKm>0</b></div>
+    <div class=metric><small>EXPENSES</small><b id=taxExp>$0</b></div>
+  </div>
+  <button id=taxCsv class=btn>Export tax CSV</button>
+  <button id=backup class="btn alt">Export full backup</button>
+</div>
+</section>
+<nav class=tabs>
+<button class=active data-p=home><span class=ico>⌂</span>HOME</button>
+<button data-p=order><span class=ico>◎</span>ORDER</button>
+<button data-p=expenses><span class=ico>◈</span>EXPENSES</button>
+<button data-p=more><span class=ico>•••</span>MORE</button>
+</nav>
+
+<div id=startModal class=modal><div class=sheet><h2>Start shift</h2><div class=cd>Enter your odometer so ShiftPilot can calculate the full distance you drive. You can skip it if you forget.</div><label>STARTING ODOMETER (KM)</label><input id=startOdo type=number step=.1 placeholder="Optional"><button id=confirmStart class=btn>Start shift</button><button class="btn alt close">Cancel</button></div></div>
+<div id=endModal class=modal><div class=sheet><h2>Finish shift</h2><div class=cd>Use your car's ending odometer and Uber's final shift earnings to reconcile the shift.</div><div class=grid2><div><label>ENDING ODOMETER (KM)</label><input id=endOdo type=number step=.1 placeholder="Ending odometer"></div><div><label>UBER FINAL EARNINGS ($)</label><input id=finalGross type=number step=.01 placeholder="Optional"></div></div><div id=endPreview></div><button id=finishShift class=btn>Finish & save shift</button><button class="btn alt close">Cancel</button></div></div>
+
+<script>
+const $=x=>document.getElementById(x),K='shiftpilotV4';let D={};try{D=JSON.parse(localStorage.getItem(K)||'{}')}catch{}
+D.shifts=D.shifts||[];D.expenses=D.expenses||[];D.current=D.current||null;D.settings=D.settings||{};D.schedule=D.schedule||['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>({d,on:false,blocks:[]}));
+const defaults={minKm:1.5,minHr:25,maybeKm:1.2,maybeHr:22,weeklyTarget:1000,hoursTarget:35,fuelPrice:1.9,economy:8.5};for(const[k,v]of Object.entries(defaults)){if(D.settings[k]===undefined)D.settings[k]=v;if($(k))$(k).value=D.settings[k]}
+
+const save=()=>localStorage.setItem(K,JSON.stringify(D)),num=(id,f=0)=>{let v=parseFloat($(id)?.value);return Number.isFinite(v)?v:f},money=x=>'$'+(Number(x)||0).toFixed(2),fuelpk=()=>D.settings.fuelPrice*D.settings.economy/100;
+
+async function fetchGovernmentFuelPrice(opts={}){
+  const btn=opts.gps?$('useMyLocation'):$('updateFuelPrice');
+  const errorBox=$('fuelLookupError'), resultBox=$('fuelLookupResult');
+  const fuelType=$('fuelLookupType')?.value||D.settings.fuelLookupType||D.settings.fuelType||'Unleaded 91';
+  let params=new URLSearchParams({fuelType});
+
+  if(opts.gps){
+    if(!navigator.geolocation){
+      if(errorBox){errorBox.textContent='This browser does not support location access.';errorBox.classList.remove('hide');}
+      return;
+    }
+    if($('fuelLocationStatus'))$('fuelLocationStatus').textContent='Getting your current location…';
+    btn.disabled=true; btn.textContent='GETTING LOCATION…';
+    try{
+      const pos=await new Promise((resolve,reject)=>navigator.geolocation.getCurrentPosition(resolve,reject,{
+        enableHighAccuracy:true,timeout:12000,maximumAge:300000
+      }));
+      params.set('lat',pos.coords.latitude);
+      params.set('lon',pos.coords.longitude);
+      params.set('radius','8');
+      D.settings.lastFuelLat=pos.coords.latitude;
+      D.settings.lastFuelLon=pos.coords.longitude;
+      if($('fuelLocationStatus'))$('fuelLocationStatus').textContent='Using your current position · looking within 8 km';
+    }catch(err){
+      if(errorBox){
+        errorBox.textContent=err.code===1
+          ? 'Location permission was denied. You can still type a suburb below.'
+          : 'Could not get your location. Try again or use a typed suburb.';
+        errorBox.classList.remove('hide');
+      }
+      if($('fuelLocationStatus'))$('fuelLocationStatus').textContent='Location unavailable · use typed suburb instead.';
+      btn.disabled=false;btn.textContent='Use my current location';
+      return;
+    }
+  }else{
+    const area=$('fuelArea')?.value.trim()||'';
+    if(area.length<2){
+      if(errorBox){errorBox.textContent='Enter a Queensland suburb or area first.';errorBox.classList.remove('hide');}
+      return;
+    }
+    params.set('suburb',area);
+    D.settings.fuelArea=area;
+  }
+
+  D.settings.fuelLookupType=fuelType;
+  save();
+  if(errorBox)errorBox.classList.add('hide');
+  btn.disabled=true;
+  btn.textContent=opts.gps?'CHECKING NEARBY PRICES…':'CHECKING SUBURB…';
+
+  try{
+    const response=await fetch('/.netlify/functions/fuel-prices?'+params.toString(),{headers:{accept:'application/json'}});
+    const text=await response.text();
+    let data;
+    try{data=JSON.parse(text)}catch{throw new Error('The fuel-price function returned an unreadable response.');}
+    if(!response.ok)throw new Error(data.error||('Fuel lookup failed with status '+response.status+'.'));
+
+    const median=Number(data.medianPrice);
+    if(!Number.isFinite(median))throw new Error('The government lookup returned no usable median price.');
+
+    D.settings.fuelPrice=median;
+    D.settings.fuelPriceSource='Queensland Government Open Data';
+    D.settings.fuelDataset=data.dataset||'Queensland fuel-price dataset';
+    D.settings.fuelUpdated=data.latestTimestamp||null;
+    D.settings.fuelLookupMode=data.mode||'suburb';
+    save();
+
+    $('fuelSourceBadge').textContent='QLD GOV';
+    $('govMedian').textContent=money(median)+'/L';
+    $('govCheapest').textContent=money(Number(data.cheapestPrice)||0)+'/L';
+    $('govStations').textContent=String(data.stationCount||0);
+    resultBox.classList.remove('hide');
+
+    let info=data.dataset||'Queensland Government Open Data';
+    if(data.mode==='gps')info+=' · '+data.stationCount+' stations within '+data.radiusKm+' km';
+    if(data.latestTimestamp){
+      const d=new Date(data.latestTimestamp);
+      if(!isNaN(d.getTime()))info+=' · latest record '+d.toLocaleDateString();
+    }
+    $('fuelDatasetInfo').textContent=info+' · Source: Queensland Government Open Data';
+
+    const stations=data.cheapest||[];
+    $('cheapStations').innerHTML=stations.map(s=>`
+      <div class="fuel-station">
+        <div>
+          <div class="fuel-station-name">${s.brand?s.brand+' · ':''}${s.name||'Service station'}</div>
+          <div class="fuel-station-sub">${s.suburb||''}${Number.isFinite(s.distance)?' · '+s.distance.toFixed(1)+' km away':''}${s.fuelType?' · '+s.fuelType:''}</div>
+        </div>
+        <div class="fuel-station-price">${money(Number(s.price)||0)}/L</div>
+      </div>`).join('');
+
+    if($('fpd'))$('fpd').textContent=money(median)+'/L';
+    if($('homeFuelPrice'))$('homeFuelPrice').textContent=money(median)+'/L';
+    if($('homeFuelCheap'))$('homeFuelCheap').textContent=opts.gps
+      ? 'Nearby QLD Gov snapshot · cheapest '+money(Number(data.cheapestPrice)||0)+'/L'
+      : (($('fuelArea')?.value||'Queensland')+' · QLD Gov snapshot');
+    render();
+  }catch(err){
+    $('fuelSourceBadge').textContent='FAILED';
+    if(errorBox){errorBox.textContent='Fuel lookup error: '+(err?.message||String(err));errorBox.classList.remove('hide');}
+  }finally{
+    btn.disabled=false;
+    btn.textContent=opts.gps?'Use my current location':'Use typed suburb instead';
+  }
+}
+
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.p))});
+for(const k of Object.keys(defaults))$(k)?.addEventListener('input',()=>{D.settings[k]=num(k,defaults[k]);save();render()});
+function orderCalc(){let p=num('pay',NaN),k=num('km',NaN),m=num('mins',NaN);if(![p,k,m].every(Number.isFinite)||p<=0||k<=0||m<=0){$('verdict').textContent='—';$('verdict').className='verdict';$('why').textContent='Enter an order above.';$('pk').textContent=$('ph').textContent=$('after').textContent='—';return}let pk=p/k,ph=p/(m/60);$('pk').textContent=money(pk);$('ph').textContent=money(ph);$('after').textContent=money(p-k*fuelpk());if(pk>=D.settings.minKm&&ph>=D.settings.minHr){$('verdict').textContent='ACCEPT';$('verdict').className='verdict good';$('why').textContent='Meets both of your targets.'}else if(pk>=D.settings.maybeKm&&ph>=D.settings.maybeHr){$('verdict').textContent='MAYBE';$('verdict').className='verdict maybe';$('why').textContent='Borderline — consider wait time and where it leaves you.'}else{$('verdict').textContent='DECLINE';$('verdict').className='verdict bad';$('why').textContent='Below one or more of your targets.'}}
+['pay','km','mins'].forEach(x=>$(x).oninput=orderCalc);
+function modal(id,on=true){$(id).classList.toggle('open',on)}document.querySelectorAll('.close').forEach(b=>b.onclick=()=>b.closest('.modal').classList.remove('open'));
+$('shiftBtn').onclick=()=>D.current?modal('endModal'):modal('startModal');
+$('confirmStart').onclick=()=>{
+  D.current={start:Date.now(),startOdo:num('startOdo',null),orders:[],gps:{km:0,points:0}};
+  $('startOdo').value='';
+  save();modal('startModal',false);
+  startContinuousGps();
+  render();
+};
+$('log').onclick=()=>{let p=num('pay',NaN),km=num('km',NaN),mins=num('mins',NaN);if(![p,km,mins].every(Number.isFinite)||p<=0||km<=0||mins<=0)return;if(!D.current){modal('startModal');return}D.current.orders.push({ts:Date.now(),pay:p,km,mins});save();render();$('log').textContent='Added ✓';setTimeout(()=>$('log').textContent='Accept & add to shift',700)};
+function vals(s){let gross=(s.orders||[]).reduce((a,o)=>a+o.pay,0),on=(s.orders||[]).reduce((a,o)=>a+o.km,0),total=s.totalKm??on,off=Math.max(0,total-on);return{gross:s.finalGross??gross,logged:gross,on,total,off,fuel:total*fuelpk()}}
+function endPreview(){if(!D.current)return;let e=num('endOdo',NaN),v=vals(D.current),total=Number.isFinite(e)&&Number.isFinite(D.current.startOdo)?Math.max(0,e-D.current.startOdo):v.on,off=Math.max(0,total-v.on),g=num('finalGross',v.logged);$('endPreview').innerHTML=`<div class=split><div class=sbox><small>TOTAL KM</small><b>${total.toFixed(1)}</b></div><div class=sbox><small>ON-ORDER</small><b>${v.on.toFixed(1)}</b></div><div class=sbox><small>OFF-ORDER</small><b>${off.toFixed(1)}</b></div></div><div class=callout>Recorded orders: ${money(v.logged)} • Final earnings: ${money(g)} • Difference: ${money(g-v.logged)}</div>`}
+['endOdo','finalGross'].forEach(x=>$(x).oninput=endPreview);$('endModal').addEventListener('transitionend',endPreview);
+$('finishShift').onclick=()=>{if(!D.current)return;let e=num('endOdo',NaN),fg=num('finalGross',NaN),v=vals(D.current);D.current.end=Date.now();D.current.hours=(D.current.end-D.current.start)/36e5;if(Number.isFinite(e)&&Number.isFinite(D.current.startOdo)&&e>=D.current.startOdo){
+  D.current.endOdo=e;D.current.totalKm=e-D.current.startOdo;D.current.distanceSource='odometer';
+}else if((D.current.gps?.km||0)>0){
+  D.current.totalKm=D.current.gps.km;D.current.distanceSource='gps';
+}else{
+  D.current.totalKm=v.on;D.current.distanceSource='orders';
+}
+if(Number.isFinite(fg)&&fg>=0)D.current.finalGross=fg;
+D.shifts.unshift(D.current);
+stopContinuousGps();
+D.current=null;$('endOdo').value=$('finalGross').value='';save();modal('endModal',false);render()};
+function renderShift(){if(!D.current){$('live').textContent='● OFFLINE';$('live').className='live';$('timer').textContent='0:00:00';$('currentEarn').textContent='$0.00';$('sOrders').textContent='0';$('sOn').textContent='0';$('sPerKm').textContent='$0';$('shiftBtn').textContent='Start shift';$('orders').className='empty';$('orders').textContent='No orders yet. Accepted orders will appear here.';$('distanceBox').classList.add('hide');return}let v=vals(D.current),elapsedMs=Date.now()-D.current.start,h=elapsedMs/36e5,hh=Math.floor(elapsedMs/36e5),mm=Math.floor(elapsedMs/60000)%60,ss=Math.floor(elapsedMs/1000)%60;$('live').textContent='● SHIFT ACTIVE';$('live').className='live on';$('timer').textContent=hh+':'+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');$('currentEarn').textContent=money(v.logged);$('sOrders').textContent=D.current.orders.length;$('sOn').textContent=v.on.toFixed(1);$('sPerKm').textContent=money(v.on?v.logged/v.on:0);$('shiftBtn').textContent='End shift';$('orders').className='';$('orders').innerHTML=D.current.orders.length?D.current.orders.slice().reverse().map(o=>`<div class=order><div><b>${money(o.pay)} · ${o.km.toFixed(1)} km</b><small>${o.mins} min · ${money(o.pay/o.km)}/km</small></div><span class=pill>${money(o.pay/(o.mins/60))}/h</span></div>`).join(''):'<div class=empty>No orders yet.</div>'}
+setInterval(()=>{renderShift();renderHome()},1000);
+function mins(t){if(!t)return 0;let[a,b]=t.split(':').map(Number);return a*60+b}function blockHours(b){let x=mins(b.start),y=mins(b.end);if(y<x)y+=1440;return Math.max(0,(y-x)/60)}function dayHours(d){return d.on?d.blocks.reduce((a,b)=>a+blockHours(b),0):0}
+function editSchedule(){let box=$('scheduleEditor');box.innerHTML='';D.schedule.forEach((d,i)=>{let el=document.createElement('div');el.className='schedule-day';el.innerHTML=`<label class=toggle><input type=checkbox id=on${i} ${d.on?'checked':''}> ${d.d}</label><div class=blocks id=blocks${i}></div><button class=add data-i=${i}>+ Add work block</button>`;box.appendChild(el);renderBlocks(i)});document.querySelectorAll('.toggle input').forEach((x,i)=>x.onchange=()=>{D.schedule[i].on=x.checked;if(x.checked&&!D.schedule[i].blocks.length)D.schedule[i].blocks=[{start:'',end:''}];renderBlocks(i)});document.querySelectorAll('.add').forEach(b=>b.onclick=()=>{let i=+b.dataset.i;D.schedule[i].on=true;D.schedule[i].blocks.push({start:'',end:''});editSchedule()})}
+function renderBlocks(i){let c=$('blocks'+i),d=D.schedule[i];if(!c)return;c.innerHTML=d.on?d.blocks.map((b,j)=>`<div class=block><div><label>START</label><input type=time data-i=${i} data-j=${j} data-k=start value="${b.start}"></div><div><label>FINISH</label><input type=time data-i=${i} data-j=${j} data-k=end value="${b.end}"></div><button class=x data-i=${i} data-j=${j}>×</button></div>`).join(''):'';c.querySelectorAll('input[type=time]').forEach(x=>x.oninput=()=>D.schedule[+x.dataset.i].blocks[+x.dataset.j][x.dataset.k]=x.value);c.querySelectorAll('.x').forEach(x=>x.onclick=()=>{D.schedule[+x.dataset.i].blocks.splice(+x.dataset.j,1);renderBlocks(+x.dataset.i)})}
+function fmt(t){if(!t)return'—';let[h,m]=t.split(':').map(Number),ap=h>=12?'pm':'am';h=h%12||12;return h+':'+String(m).padStart(2,'0')+' '+ap}
+
+function fmtDuration(hours){
+  let total=Math.max(0,Math.round((hours||0)*3600));
+  let h=Math.floor(total/3600), m=Math.floor((total%3600)/60);
+  return h+'h '+m+'m';
+}
+
+
+let gpsWatchId=null;
+let gpsLastPoint=null;
+let gpsLastFuelRefresh=0;
+let gpsLastFuelPoint=null;
+
+function geoDistanceKm(a,b){
+  if(!a||!b)return 0;
+  const R=6371, rad=x=>x*Math.PI/180;
+  const dLat=rad(b.lat-a.lat), dLon=rad(b.lon-a.lon);
+  const q=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(q));
+}
+
+function updateGpsUi(text, detail, state=''){
+  if($('homeGpsStatus')){
+    $('homeGpsStatus').textContent=text;
+    $('homeGpsStatus').className='dash-big '+(state==='on'?'gps-on':state==='warn'?'gps-warn':'');
+  }
+  if($('homeGpsDetail'))$('homeGpsDetail').textContent=detail;
+}
+
+async function maybeRefreshFuelForLocation(point, force=false){
+  const now=Date.now();
+  const moved=gpsLastFuelPoint?geoDistanceKm(gpsLastFuelPoint,point):999;
+  // Refresh at most every 10 min, or after moving 3 km, unless explicitly forced.
+  if(!force && now-gpsLastFuelRefresh<10*60*1000 && moved<3)return;
+  gpsLastFuelRefresh=now;
+  gpsLastFuelPoint={...point};
+
+  const fuelType=$('fuelLookupType')?.value||D.settings.fuelLookupType||D.settings.fuelType||'Unleaded 91';
+  try{
+    const params=new URLSearchParams({fuelType,lat:String(point.lat),lon:String(point.lon),radius:'8'});
+    const response=await fetch('/.netlify/functions/fuel-prices?'+params.toString(),{headers:{accept:'application/json'}});
+    const text=await response.text();
+    const data=JSON.parse(text);
+    if(!response.ok || !Number.isFinite(Number(data.medianPrice)))return;
+
+    D.settings.fuelPrice=Number(data.medianPrice);
+    D.settings.fuelPriceSource='Queensland Government Open Data';
+    D.settings.fuelDataset=data.dataset||'Queensland fuel-price dataset';
+    D.settings.fuelUpdated=data.latestTimestamp||null;
+    D.settings.fuelLookupMode='gps';
+    D.settings.lastFuelLat=point.lat;
+    D.settings.lastFuelLon=point.lon;
+    D.settings.lastFuelCheapest=Number(data.cheapestPrice)||null;
+    save();
+
+    if($('homeFuelPrice'))$('homeFuelPrice').textContent=money(D.settings.fuelPrice)+'/L';
+    if($('homeFuelCheap'))$('homeFuelCheap').textContent='Nearby snapshot · cheapest '+money(D.settings.lastFuelCheapest||0)+'/L';
+    if($('fuelSourceBadge'))$('fuelSourceBadge').textContent='QLD GOV';
+  }catch(e){
+    // GPS tracking should keep running even if a fuel refresh fails.
+  }
+}
+
+function startContinuousGps(){
+  if(gpsWatchId!==null || !navigator.geolocation)return;
+  updateGpsUi('Connecting GPS…','Waiting for your phone location.','warn');
+
+  gpsWatchId=navigator.geolocation.watchPosition(
+    pos=>{
+      const point={lat:pos.coords.latitude,lon:pos.coords.longitude,accuracy:pos.coords.accuracy,ts:Date.now()};
+      D.settings.lastGps=point;
+
+      if(D.current){
+        D.current.gps=D.current.gps||{km:0,points:0};
+        if(gpsLastPoint){
+          const step=geoDistanceKm(gpsLastPoint,point);
+          // Ignore obvious GPS jumps; keep legitimate driving movement.
+          if(step>=0.003 && step<=2){
+            D.current.gps.km=(D.current.gps.km||0)+step;
+          }
+        }
+        D.current.gps.points=(D.current.gps.points||0)+1;
+        D.current.gps.last=point;
+      }
+      gpsLastPoint=point;
+      save();
+
+      const gpsKm=D.current?.gps?.km||0;
+      updateGpsUi('GPS tracking','±'+Math.round(point.accuracy||0)+' m accuracy · '+gpsKm.toFixed(1)+' km tracked','on');
+      maybeRefreshFuelForLocation(point,false);
+      renderHome();
+    },
+    err=>{
+      if(err.code===1)updateGpsUi('Location blocked','Allow location permission to enable continuous tracking.','warn');
+      else updateGpsUi('GPS unavailable','Shift tracking continues; GPS will retry when possible.','warn');
+    },
+    {enableHighAccuracy:true,maximumAge:5000,timeout:15000}
+  );
+}
+
+function stopContinuousGps(){
+  if(gpsWatchId!==null && navigator.geolocation){
+    navigator.geolocation.clearWatch(gpsWatchId);
+    gpsWatchId=null;
+  }
+  gpsLastPoint=null;
+  if(!D.current)updateGpsUi('GPS off','Starts automatically with your shift.');
+}
+
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.p===id));
+  const p=$(id); if(p)p.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');
+  if(g){e.preventDefault();goPage(g.dataset.go);}
+});
+
+function todayPlan(){
+  const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const abbr=names[new Date().getDay()];
+  const day=(D.schedule||[]).find(x=>x.d===abbr);
+  return day&&day.on?(day.blocks||[]):[];
+}
+
+function renderHome(){
+  if(!$('homeGross'))return;
+  const active=D.current;
+  const s=active||null;
+  const v=s?vals(s):{gross:0,total:0,on:0,off:0,fuel:0};
+  let elapsed=active?(Date.now()-active.start):0;
+  let hours=elapsed/36e5;
+  let hh=Math.floor(elapsed/36e5),mm=Math.floor(elapsed/60000)%60,ss=Math.floor(elapsed/1000)%60;
+
+  $('homeLive').textContent=active?'● SHIFT ACTIVE':'● OFFLINE';
+  $('homeLive').className=active?'live on':'live';
+  $('homeTimer').textContent=active?(hh+':'+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0')):'0:00:00';
+  $('homeGross').textContent=money(v.gross);
+  $('homeHr').textContent=money(hours?v.gross/hours:0);
+  $('homeOrders').textContent=(s?.orders||[]).length;
+  $('homePerKm').textContent=money(v.total?v.gross/v.total:0);
+  const liveTotal=active?Math.max(v.on,Number(active.gps?.km||0)):v.total;
+  const liveOff=Math.max(0,liveTotal-v.on);
+  $('homeTotalKm').textContent=liveTotal.toFixed(1)+' km';
+  $('homeDistanceSplit').textContent=v.on.toFixed(1)+' on-order · '+liveOff.toFixed(1)+' off-order';
+  $('homeFuelCost').textContent=money(liveTotal*fuelpk())+' est. this shift';
+  $('homeShiftBtn').textContent=active?'END SHIFT':'START SHIFT';
+
+  const wp=week();
+  const target=Number(D.settings.weeklyTarget||0);
+  const hTarget=Number(D.settings.hoursTarget||35);
+  $('homeWeekGross').textContent=money(wp.gross)+' / '+money(target);
+  $('homeWeekHours').textContent=wp.h.toFixed(1)+' / '+hTarget.toFixed(0)+' hours';
+  $('homeWeekProgress').style.width=(target?Math.min(100,wp.gross/target*100):0)+'%';
+
+  if(D.settings.fuelPriceSource==='Queensland Government Open Data'){
+    $('homeFuelPrice').textContent=money(D.settings.fuelPrice)+'/L';
+    $('homeFuelCheap').textContent=D.settings.fuelLookupMode==='gps'
+      ? ('Nearby snapshot'+(D.settings.lastFuelCheapest?' · cheapest '+money(D.settings.lastFuelCheapest)+'/L':''))
+      : ((D.settings.fuelArea||'Queensland')+' · QLD Gov snapshot');
+  }else{
+    $('homeFuelPrice').textContent='—';
+    $('homeFuelCheap').textContent='Government price not loaded';
+  }
+
+  const blocks=todayPlan();
+  if(blocks.length){
+    const b=blocks[0];
+    $('homePlan').textContent=fmt(b.start)+' – '+fmt(b.end);
+    $('homePlanTarget').textContent=blocks.length>1?(blocks.length+' planned blocks today'):'Planned work block';
+  }else{
+    $('homePlan').textContent='Not scheduled';
+    $('homePlanTarget').textContent='Set your weekly plan under More.';
+  }
+}
+
+function renderHomeRecentShifts(){
+  if(!$('homeRecentShifts'))return;
+  const list=(D.shifts||[]).slice(0,3);
+  if(!list.length){
+    $('homeRecentShiftTitle').textContent='No completed shifts';
+    $('homeRecentShifts').className='empty';
+    $('homeRecentShifts').textContent='Your finished shifts will appear here.';
+    return;
+  }
+  $('homeRecentShiftTitle').textContent=list.length===1?'Latest shift':'Latest '+list.length+' shifts';
+  $('homeRecentShifts').className='';
+  $('homeRecentShifts').innerHTML=list.map(s=>{
+    const v=vals(s), d=new Date(s.start);
+    const date=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+    const dur=fmtDuration(s.hours);
+    const source=s.distanceSource==='gps'?'GPS':s.distanceSource==='odometer'?'Odometer':'Orders';
+    return `<div class="recent-shift">
+      <div>
+        <div class="recent-shift-main">${date} · ${dur}</div>
+        <div class="recent-shift-sub">${v.total.toFixed(1)} km · ${(s.orders||[]).length} orders · ${source}</div>
+      </div>
+      <div class="recent-shift-money">${money(v.gross)}</div>
+    </div>`;
+  }).join('');
+}
+if($('viewAllShifts'))$('viewAllShifts').onclick=()=>{goPage('more');setTimeout(()=>{if($('shiftHistory'))$('shiftHistory').scrollIntoView({behavior:'smooth',block:'start'})},100)};
+
+function renderShiftHistory(){
+  if(!$('shiftHistory'))return;
+  let list=D.shifts||[];
+  $('shiftHistoryCount').textContent=list.length+' '+(list.length===1?'shift':'shifts');
+  if(!list.length){
+    $('shiftHistory').className='empty';
+    $('shiftHistory').textContent='No completed shifts yet.';
+    return;
+  }
+  $('shiftHistory').className='';
+  $('shiftHistory').innerHTML=list.map((s,i)=>{
+    let v=vals(s), d=new Date(s.start), end=s.end?new Date(s.end):null;
+    let date=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+    let time=d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+(end?' – '+end.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}):'');
+    let after=Math.max(0,v.gross-v.fuel);
+    return `<div class="shift-history-item">
+      <div class="shift-history-top">
+        <div>
+          <div class="shift-history-date">${date}</div>
+          <div class="shift-history-time">${time} · ${fmtDuration(s.hours)}</div>
+        </div>
+        <button type="button" class="delete-shift" data-index="${i}">Delete</button>
+      </div>
+      <div class="shift-history-stats">
+        <div class="shift-history-stat"><small>GROSS</small><b>${money(v.gross)}</b></div>
+        <div class="shift-history-stat"><small>AFTER FUEL</small><b>${money(after)}</b></div>
+        <div class="shift-history-stat"><small>TOTAL KM</small><b>${v.total.toFixed(1)}</b></div>
+        <div class="shift-history-stat"><small>ORDERS</small><b>${(s.orders||[]).length}</b></div>
+        <div class="shift-history-stat"><small>ON-ORDER</small><b>${v.on.toFixed(1)} km</b></div>
+        <div class="shift-history-stat"><small>OFF-ORDER</small><b>${v.off.toFixed(1)} km</b></div>
+        <div class="shift-history-stat"><small>GROSS/HR</small><b>${money((s.hours||0)?v.gross/s.hours:0)}</b></div>
+        <div class="shift-history-stat"><small>GROSS/KM</small><b>${money(v.total?v.gross/v.total:0)}</b></div>
+      </div>
+    </div>`;
+  }).join('');
+  $('shiftHistory').querySelectorAll('.delete-shift').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      let idx=Number(btn.dataset.index);
+      let s=D.shifts[idx];
+      if(!s)return;
+      let d=new Date(s.start).toLocaleString();
+      if(confirm('Delete this shift from '+d+'? This will remove it from weekly and tax totals too.')){
+        D.shifts.splice(idx,1);
+        save();
+        render();
+      }
+    });
+  });
+}
+function renderPlan(){let sum=D.schedule.reduce((a,d)=>a+dayHours(d),0);$('planHours').textContent=sum.toFixed(1)+'h';let active=D.schedule.filter(d=>d.on&&dayHours(d)>0);$('planSummary').className=active.length?'':'empty';$('planSummary').innerHTML=active.length?active.map(d=>`<div class=summaryday><b>${d.d}</b><div class=times>${d.blocks.map(b=>fmt(b.start)+'–'+fmt(b.end)).join(' • ')}</div><b>${dayHours(d).toFixed(1)}h</b></div>`).join(''):'No schedule set yet.';let ti=(new Date().getDay()+6)%7,td=D.schedule[ti],dh=dayHours(td);$('todayGoal').textContent=dh&&sum?`Today: ${dh.toFixed(1)} planned hours. About ${money(D.settings.weeklyTarget*dh/sum)} gross keeps you on pace for your weekly goal.`:'No work blocks are planned for today.'}
+$('saveSchedule').onclick=()=>{save();renderPlan();$('saveSchedule').textContent='Saved ✓';setTimeout(()=>$('saveSchedule').textContent='Save weekly plan',700)};
+
+if($('fuelArea'))$('fuelArea').value=D.settings.fuelArea||'';
+if($('fuelLookupType'))$('fuelLookupType').value=D.settings.fuelLookupType||D.settings.fuelType||'Unleaded 91';
+if($('updateFuelPrice'))$('updateFuelPrice').onclick=()=>fetchGovernmentFuelPrice({gps:false});
+if($('useMyLocation'))$('useMyLocation').onclick=()=>fetchGovernmentFuelPrice({gps:true});
+
+['carYear','carMake','carModel','fuelType'].forEach(x=>{if(D.settings[x]&&$(x))$(x).value=D.settings[x]});
+if($('saveCar'))$('saveCar').onclick=()=>{
+  ['carYear','carMake','carModel','fuelType'].forEach(x=>{if($(x))D.settings[x]=$(x).value});
+  save();
+  $('saveCar').textContent='VEHICLE SAVED ✓';
+  setTimeout(()=>$('saveCar').textContent='Save vehicle',1200);
+};
+
+
+if($('homeShiftBtn'))$('homeShiftBtn').onclick=()=>{
+  if(D.current) modal('endModal');
+  else modal('startModal');
+};
+
+if($('homeFuelRefresh'))$('homeFuelRefresh').onclick=async()=>{
+  goPage('more');
+  setTimeout(()=>fetchGovernmentFuelPrice({gps:true}),100);
+};
+
+function weekStart(){let d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return +d}function week(){let a=weekStart(),ss=D.shifts.filter(s=>s.start>=a&&s.start<a+6048e5),r={gross:0,h:0,km:0,fuel:0};ss.forEach(s=>{let v=vals(s);r.gross+=v.gross;r.h+=s.hours||0;r.km+=v.total;r.fuel+=v.fuel});return r}
+function fyr(){return $('fy').value==='2025–26'?[+new Date('2025-07-01'),+new Date('2026-07-01')]:[+new Date('2026-07-01'),+new Date('2027-07-01')]}function tax(){let[a,b]=fyr(),ss=D.shifts.filter(s=>s.start>=a&&s.start<b),ex=D.expenses.filter(e=>e.ts>=a&&e.ts<b),gross=0,km=0;ss.forEach(s=>{let v=vals(s);gross+=v.gross;km+=v.total});return{ss,ex,gross,km,exp:ex.reduce((a,e)=>a+e.amount,0)}}
+$('ecat').onchange=()=>{$('fuelExpenseFields').style.display=$('ecat').value==='Fuel'?'block':'none'};
+$('addExp').onclick=()=>{
+  let a=num('eamt',NaN); if(!Number.isFinite(a)||a<=0)return;
+  let cat=$('ecat').value;
+  let fp=num('expenseFuelPrice',NaN), litres=num('expenseLitres',NaN), odo=num('expenseOdo',NaN);
+  if(cat==='Fuel' && !Number.isFinite(litres) && Number.isFinite(fp) && fp>0) litres=a/fp;
+  D.expenses.unshift({
+    ts:Date.now(),cat,amount:a,note:$('enote').value,
+    fuelPrice:(cat==='Fuel'&&Number.isFinite(fp))?fp:null,
+    litres:(cat==='Fuel'&&Number.isFinite(litres))?litres:null,
+    odometer:Number.isFinite(odo)?odo:null
+  });
+  ['eamt','enote','expenseFuelPrice','expenseLitres','expenseOdo'].forEach(id=>{if($(id))$(id).value=''});
+  save();renderExpenses();renderTax();
+};
+$('fy').onchange=renderTax;
+
+function renderExpenses(){
+  if(!$('expList'))return;
+  let now=new Date();
+  let month=D.expenses.filter(e=>{let d=new Date(e.ts);return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth()});
+  let total=month.reduce((a,e)=>a+(e.amount||0),0);
+  if($('monthExpenseTotal'))$('monthExpenseTotal').textContent=money(total);
+  $('expList').className=month.length?'':'empty';
+  $('expList').innerHTML=month.length?month.map(e=>{
+    let bits=[];
+    if(e.cat==='Fuel'&&e.fuelPrice)bits.push(money(e.fuelPrice)+'/L');
+    if(e.cat==='Fuel'&&e.litres)bits.push(Number(e.litres).toFixed(2)+' L');
+    if(e.odometer)bits.push(Number(e.odometer).toFixed(1)+' km odo');
+    if(e.note)bits.push(e.note);
+    return `<div class=expense><b>${e.cat} · ${money(e.amount)}</b><div class=muted>${new Date(e.ts).toLocaleDateString()}${bits.length?' · '+bits.join(' · '):''}</div></div>`;
+  }).join(''):'No expenses recorded yet.';
+}
+function renderTax(){let t=tax();$('taxGross').textContent=money(t.gross);$('taxShifts').textContent=t.ss.length;$('taxKm').textContent=t.km.toFixed(1);$('taxExp').textContent=money(t.exp);$('expList').className=t.ex.length?'':'empty';$('expList').innerHTML=t.ex.length?t.ex.map(e=>`<div class=expense><b>${e.cat} · ${money(e.amount)}</b><div class=muted>${new Date(e.ts).toLocaleDateString()}${e.note?' · '+e.note:''}</div></div>`).join(''):'No expenses recorded yet.'}
+function dl(name,text,type){let u=URL.createObjectURL(new Blob([text],{type:type||'text/plain'})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+$('taxCsv').onclick=()=>{let t=tax(),r=[['type','date','gross','total_km','on_order_km','off_order_km','category','amount','note']];t.ss.forEach(s=>{let v=vals(s);r.push(['shift',new Date(s.start).toISOString(),v.gross,v.total,v.on,v.off,'','',''])});t.ex.forEach(e=>r.push(['expense',new Date(e.ts).toISOString(),'','','','',e.cat,e.amount,e.note||'']));dl('shiftpilot-tax-'+$('fy').value+'.csv',r.map(x=>x.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n'),'text/csv')};$('backup').onclick=()=>dl('shiftpilot-backup.json',JSON.stringify(D,null,2),'application/json');
+function render(){orderCalc();renderShift();renderHome();renderHomeRecentShifts();renderShiftHistory();renderPlan();renderExpenses();renderTax();let w=week();
+if($('weekGross'))$('weekGross').textContent=money(w.gross);
+if($('weekHours'))$('weekHours').textContent=w.h.toFixed(1)+'h';
+if($('weekNet'))$('weekNet').textContent=money(w.gross-w.fuel);
+if($('weekRate'))$('weekRate').textContent=money(w.h?(w.gross-w.fuel)/w.h:0);
+if($('fpd'))$('fpd').textContent=D.settings.fuelPrice?money(D.settings.fuelPrice)+'/L':'—';
+if($('fed'))$('fed').textContent=D.settings.economy.toFixed(1)+' L/100';
+if($('wFuel'))$('wFuel').textContent=money(w.fuel);
+save()}
+editSchedule();render();if(D.current)startContinuousGps();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script></body></html>
